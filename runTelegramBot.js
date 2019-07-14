@@ -5,8 +5,8 @@ const finders = require('./handlers/finders')
 module.exports = (bot) => {
   bot.use((ctx, next) => {
     const start = new Date()
-    if (!ctx.match) return next()
     return next(ctx).then(() => {
+      if (!ctx.match) return
       if (!ctx.update.callback_query) {
         const ms = new Date() - start
         const from = ctx.update.message.from.first_name
