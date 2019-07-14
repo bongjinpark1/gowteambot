@@ -1,7 +1,7 @@
 module.exports = async (troops, kingdom) => {
   const Jimp = require('jimp')
   const path = require('path')
-  const renderTroopImage = require('./renderTroopImage')
+  const renderTroopImage = require('../../../../utils/renderTroopImage')
 
   const background = new Jimp(5 + 256 + 5 + 102 + 5, (60 * 4) + (5 * 5), 0x00000000)
   const troopImages = await Promise.all(troops.map(troop => {
