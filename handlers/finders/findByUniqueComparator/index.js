@@ -31,9 +31,8 @@ module.exports = {
       }
     }
     if (!context.callbackQuery) {
-      return context.reply(response, options, {
-        reply_to_message_id: context.message.message_id
-      })
+      options.reply_to_message_id = context.message.message_id
+      return context.reply(response, options)
     }
     context.telegram.editMessageText(context.callbackQuery.message.chat.id, context.callbackQuery.message.message_id, null, response, options)
     context.telegram.answerCbQuery(context.callbackQuery.id)
