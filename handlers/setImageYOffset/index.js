@@ -4,11 +4,12 @@ module.exports = {
     const match = context.match
     const _id = parseInt(match[1], 10)
     const y = parseInt(match[2], 10)
+    const responseError = require('../../utils/responseError')
     const Card = require('../../models/cards')
 
     const card = await Card.findById(_id)
 
-    if (!card) return context.reply(`Card ${_id} not found.`)
+    if (!card) return responseError(`Card ${_id} not found.`)
 
     const renderTroopImage = require('../../utils/renderTroopImage')
     const Jimp = require('jimp')
