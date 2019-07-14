@@ -21,7 +21,7 @@ module.exports = {
     setTimeout(() => {
       context.telegram.deleteMessage(sent.chat.id, sent.message_id)
       context.deleteMessage()
-    }, 5000)
+    }, 60000)
   },
   attach: function (bot) {
     bot.hears(this.regex, this.handler)
