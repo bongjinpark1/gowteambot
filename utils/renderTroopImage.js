@@ -2,7 +2,7 @@ module.exports = async (troop, y = 100) => {
   const Jimp = require('jimp')
   const path = require('path')
   const parseColors = require('./parseColors')
-  const url = path.resolve(__dirname, '../../../../img/' + troop._id + '.jpg')
+  const url = path.resolve(__dirname, '../img/' + troop._id + '.jpg')
 
   const background = await Jimp.read(url)
     .catch(() => {
@@ -23,12 +23,12 @@ module.exports = async (troop, y = 100) => {
       }
     })
   const colors = parseColors(troop.colors)
-  const manaSymbol = await Jimp.read(path.resolve(__dirname, '../../../../img/small_' + colors.join('_') + '.png'))
+  const manaSymbol = await Jimp.read(path.resolve(__dirname, '../img/small_' + colors.join('_') + '.png'))
     .catch(() => {
       return null
     })
 
-  const font = await Jimp.loadFont(path.resolve(__dirname, '../../../../font/lato.fnt'))
+  const font = await Jimp.loadFont(path.resolve(__dirname, '../font/lato.fnt'))
 
   const fontX = 5 + 32 + 5
   const fontY = (60 - 18) / 2
@@ -38,5 +38,5 @@ module.exports = async (troop, y = 100) => {
 
   if (manaSymbol) background.composite(manaSymbol, 5, (60 - 32) / 2)
 
-  return background.writeAsync(path.resolve(__dirname, '../../../../img/' + troop._id + '.ws.jpg'))
+  return background.writeAsync(path.resolve(__dirname, '../img/' + troop._id + '.ws.jpg'))
 }

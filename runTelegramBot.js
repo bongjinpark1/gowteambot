@@ -1,4 +1,5 @@
 const teamcodeParser = require('./handlers/teamcodeParser')
+const setImageYOffset = require('./handlers/setImageYOffset')
 module.exports = (bot) => {
   bot.use((ctx, next) => {
     const start = new Date()
@@ -8,6 +9,7 @@ module.exports = (bot) => {
     })
   })
   teamcodeParser.attach(bot)
+  setImageYOffset.attach(bot)
   bot.launch()
   console.log('Bot running...')
 }
