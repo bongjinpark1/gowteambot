@@ -9,7 +9,7 @@ module.exports = {
     }
 
     const Team = require('../../../models/teams')
-    const teams = await Team.findByTags(tags, context)
+    const teams = await Team.findByTags(tags)
       .then(teams => {
         if (!teams || !teams.length) return null
         return teams.map(team => {

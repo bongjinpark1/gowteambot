@@ -50,7 +50,7 @@ schema.pre('save', function (next) {
   next()
 })
 
-schema.statics.findByTags = function (tags, context) {
+schema.statics.findByTags = function (tags) {
   return this.aggregate()
     .match({ comment: { $exists: true } })
     .match({ tags: { $all: tags } })
