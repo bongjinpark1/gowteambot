@@ -21,7 +21,9 @@ module.exports = {
     if (!teams) return responseNotice(context, 'No data available.')
 
     const queuedResponse = require('../../../utils/queuedReponse')
-    queuedResponse(context, teams)
+    queuedResponse(context, teams, {
+      reply_to_message_id: context.message.message_id
+    })
   },
   attach: function (bot) {
     bot.hears(this.regex, this.handler)

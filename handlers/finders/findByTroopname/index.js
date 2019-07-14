@@ -26,7 +26,8 @@ module.exports = {
 
     const queuedResponse = require('../../../utils/queuedReponse')
     queuedResponse(context, teams, {
-      parse_mode: 'HTML'
+      parse_mode: 'HTML',
+      reply_to_message_id: context.message.message_id
     })
   },
   attach: function (bot) {

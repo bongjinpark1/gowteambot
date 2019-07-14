@@ -16,7 +16,8 @@ module.exports = {
     const image = await renderTroopImage(card, y).then(image => image.getBufferAsync(Jimp.MIME_JPEG))
 
     const sent = await context.replyWithPhoto({ source: image }, {
-      caption: '1분후 만료됩니다. Y-Offset ' + y
+      caption: '1분후 만료됩니다. Y-Offset ' + y,
+      reply_to_message_id: context.message.message_id
     })
 
     setTimeout(() => {

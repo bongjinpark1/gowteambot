@@ -30,7 +30,11 @@ module.exports = {
         inline_keyboard: [inline_keyboard]
       }
     }
-    if (!context.callbackQuery) return context.reply(response, options)
+    if (!context.callbackQuery) {
+      return context.reply(response, options, {
+        reply_to_message_id: context.message.message_id
+      })
+    }
     context.telegram.editMessageText(context.callbackQuery.message.chat.id, context.callbackQuery.message.message_id, null, response, options)
     context.telegram.answerCbQuery(context.callbackQuery.id)
   },

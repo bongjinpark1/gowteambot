@@ -70,6 +70,7 @@ module.exports = {
     const image = await renderTeamImage(troops, kingdom).then(image => image.getBufferAsync(Jimp.MIME_JPEG))
 
     context.replyWithPhoto({ source: image }, {
+      reply_to_message_id: context.message.message_id,
       caption: response,
       parse_mode: 'HTML'
     })

@@ -27,10 +27,12 @@ module.exports = (bot) => {
     let message = ''
     message += '[teamcode] 팀코드를 해독하여 출력합니다.\n\n'
     message += '/find #hashtag, @username, troopname 으로 팀을 검색합니다. 코멘트가 없는 팀은 검색되지 않습니다.\n\n'
-    message += '/ec [nnnnn] [comment] 내가 포스팅한 팀의 코멘트를 덮어씁니다.\n\n'
+    message += '/edit [nnnnn] [comment] 내가 포스팅한 팀의 코멘트를 덮어씁니다.\n\n'
     message += '/iy [cardId] [number] 카드 이미지의 y 오프셋을 변경합니다. 기본값 100에서 작아지면 올라가고, 커지면 내려갑니다.\n\n'
 
-    context.reply(message)
+    context.reply(message, {
+      reply_to_message_id: context.message.message_id
+    })
   })
   bot.launch()
   console.log('Bot running...')
