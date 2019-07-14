@@ -50,8 +50,8 @@ schema.pre('save', function (next) {
   next()
 })
 
-schema.statics.byUniqueComparator = function (comparator) {
-  return this.where({ comment: { $exsits: true } })
+schema.query.byUniqueComparator = function (comparator) {
+  return this.where({ comment: { $exists: true } })
     .where({ uniqueComparator: comparator })
     .sort({ createdAt: -1 })
 }

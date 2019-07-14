@@ -66,7 +66,7 @@ module.exports = {
 
     await team.save()
 
-    const response = getResponse(context, codes, team.toObject())
+    const response = getResponse(context, team.toObject())
     const image = await renderTeamImage(troops, kingdom).then(image => image.getBufferAsync(Jimp.MIME_JPEG))
 
     context.replyWithPhoto({ source: image }, {

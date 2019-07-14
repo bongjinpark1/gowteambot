@@ -73,8 +73,8 @@ function findHeroClass (id) {
       }
     })
 }
-function getResponse (context, codes, options = {}) {
-  const { troops, kingdom, heroClass, talents, comment, _id } = options
+function getResponse (context, options = {}) {
+  const { troops, kingdom, heroClass, talents, comment, _id, teamcode } = options
 
   let response = ''
   response += `<b>${kingdom.bannerName}</b> (${kingdom.name})`
@@ -93,7 +93,7 @@ function getResponse (context, codes, options = {}) {
     return `<b>· ${troop.name}</b>\n`
   }).join('')
   response += '\n'
-  response += `<code>${['[', codes.join(','), ']'].join('')}</code>`
+  response += `<code>${teamcode}</code>`
 
   if (comment) {
     response += '\n\n'
