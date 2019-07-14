@@ -7,7 +7,7 @@ module.exports = (context, messages, options = {}) => {
     return chain.then(() => {
       queue.push(message)
       if (queue.length === limit || index === arr.length - 1) {
-        return context.reply(queue.join(joiner))
+        return context.reply(queue.join(joiner), options)
           .then(() => {
             queue.splice(0)
           })

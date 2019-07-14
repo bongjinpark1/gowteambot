@@ -50,6 +50,42 @@ schema.pre('save', function (next) {
   next()
 })
 
+schema.statics.byUniqueComparator = function (comparator) {
+  return this.where({ comment: { $exsits: true } })
+    .where({ uniqueComparator: comparator })
+    .sort({ createdAt: -1 })
+}
+
+schema.statics.findByTroopname = function (troopname) {
+  return this.aggregate()
+    .match({ comment: { $exists: true } })
+    .match({ 'troops.name': { $regex: new RegExp(troopname, 'i') } })
+    .sort({ createdAt: -1 })
+    .unwind('tags')
+    .group({
+      _id: '$uniqueComparator',
+      troops: { $first: '$troops' },
+      tags: { $addToSet: '$tags' },
+      createdAt: { $first: '$createdAt' }
+    })
+    .sort({ createdAt: -1 })
+}
+
+schema.statics.findByUsername = function (username) {
+  return this.aggregate()
+    .match({ comment: { $exists: true } })
+    .match({ username })
+    .sort({ createdAt: -1 })
+    .unwind('tags')
+    .group({
+      _id: '$uniqueComparator',
+      troops: { $first: '$troops' },
+      tags: { $addToSet: '$tags' },
+      createdAt: { $first: '$createdAt' }
+    })
+    .sort({ createdAt: -1 })
+}
+
 schema.statics.findByTags = function (tags) {
   return this.aggregate()
     .match({ comment: { $exists: true } })
@@ -71,5 +107,8 @@ schema.plugin(autoIncrement.plugin, {
 })
 
 schema.index({ comment: 1, tags: 1, createdAt: -1 })
+schema.index({ comment: 1, username: 1, createdAt: -1 })
+schema.index({ comment: 1, 'troops.name': 1, createdAt: -1 })
+schema.index({ comment: 1, uniqueComparator: 1, createdAt: -1 })
 
 module.exports = schema
