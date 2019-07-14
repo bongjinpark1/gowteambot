@@ -10,9 +10,9 @@ const {
   findTroops
 } = require('./helpers')
 
-module.exports = bot => {
-  const regex = /^\[((?:\d{4},){4}\d{4}(?:,(?:(?:\d,){7})?\d{5})?)\](?:\s(.+))?/
-  const handler = async (context) => {
+module.exports = {
+  regex: /^\[((?:\d{4},){4}\d{4}(?:,(?:(?:\d,){7})?\d{5})?)\](?:\s(.+))?/,
+  handler: async function (context) {
     const matched = context.match
     const codes = matched[1].split(',')
     const comment = matched[2] ? matched[2].trim() : null
@@ -48,25 +48,29 @@ module.exports = bot => {
 
     const [troops, kingdom, heroClass] = await Promise.all(promises)
 
+    const Team = require('../../models/teams')
     const options = {
       troops,
       kingdom,
-      heroClass,
-      talents,
-      comment
+      username: context.message.from.username,
+      first_name: context.message.from.first_name,
+      chatId: context.message.chat.id,
+      teamcode: ['[', codes.join(','), ']'].join('')
     }
+    if (heroClass) options.heroClass = heroClass
+    if (talents) options.talents = talents
+    if (comment) options.comment = comment
+    const team = new Team(options)
 
-    const response = getResponse(context, codes, options)
+    await team.save()
+
+    const response = getResponse(context, codes, team.toObject())
 
     context.reply(response, {
       parse_mode: 'HTML'
     })
-  }
-
-  bot.hears(regex, handler)
-
-  return {
-    regex,
-    handler
+  },
+  attach: function (bot) {
+    bot.hears(this.regex, this.handler)
   }
 }

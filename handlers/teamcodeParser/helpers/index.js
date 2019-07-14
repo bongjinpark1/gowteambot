@@ -74,7 +74,7 @@ function findHeroClass (id) {
     })
 }
 function getResponse (context, codes, options = {}) {
-  const { troops, kingdom, heroClass, talents, comment } = options
+  const { troops, kingdom, heroClass, talents, comment, _id } = options
 
   let response = ''
   response += `<b>${kingdom.bannerName}</b> (${kingdom.name})`
@@ -102,7 +102,7 @@ function getResponse (context, codes, options = {}) {
 
   const username = context.from.first_name
   const date = require('moment')().format('YYYY-MM-DD')
-  response += `\n\nfrom <b>${username} ${date}</b>`
+  response += `\n\n<b>No. ${_id}</b> from <b>${username} ${date}</b>`
 
   return response
 }

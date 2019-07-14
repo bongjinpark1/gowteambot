@@ -1,13 +1,8 @@
 const assert = require('chai').assert
-const onFullTeamCode = require('./onFullTeamCode')
+const teamcodeParser = require('.')
 
 describe('On full team code', () => {
-  const bot = {
-    hears: function () {}
-  }
-  const {
-    regex
-  } = onFullTeamCode(bot)
+  const { regex } = teamcodeParser
   describe('regex', () => {
     it('Should be matched', () => {
       const classless = '[1234,1234,1234,1234,1234]'

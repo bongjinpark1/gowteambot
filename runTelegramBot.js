@@ -1,4 +1,4 @@
-const onFullTeamCode = require('./handlers/teamcodeParsers/onFullTeamCode')
+const teamcodeParser = require('./handlers/teamcodeParser')
 module.exports = (bot) => {
   bot.use((ctx, next) => {
     const start = new Date()
@@ -7,7 +7,7 @@ module.exports = (bot) => {
       console.log('Response time %sms', ms)
     })
   })
-  onFullTeamCode(bot)
+  teamcodeParser.attach(bot)
   bot.launch()
   console.log('Bot running...')
 }

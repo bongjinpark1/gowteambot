@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const autoIncrement = require('mongoose-auto-increment')
 const fields = {
   troops: [{
     _id: Number,
@@ -37,6 +38,11 @@ schema.pre('save', function (next) {
     this.comment = this.comment.trim()
   }
   next()
+})
+
+schema.plugin(autoIncrement.plugin, {
+  model: 'Team',
+  startAt: 10000
 })
 
 module.exports = schema
