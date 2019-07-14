@@ -1,4 +1,5 @@
 const reportError = require('../../utils/reportError')
+const Jimp = require('jimp')
 const {
   getClassId,
   getKingdomId,
@@ -7,7 +8,8 @@ const {
   getTroopIds,
   findHeroClass,
   findKingdom,
-  findTroops
+  findTroops,
+  renderTeamImage
 } = require('./helpers')
 
 module.exports = {
@@ -65,8 +67,10 @@ module.exports = {
     await team.save()
 
     const response = getResponse(context, codes, team.toObject())
+    const image = await renderTeamImage(troops, kingdom).then(image => image.getBufferAsync(Jimp.MIME_JPEG))
 
-    context.reply(response, {
+    context.replyWithPhoto({ source: image }, {
+      caption: response,
       parse_mode: 'HTML'
     })
   },

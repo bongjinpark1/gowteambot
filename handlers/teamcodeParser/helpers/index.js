@@ -22,7 +22,7 @@ async function findTroops (troopIds) {
     return Card.findById(id)
       .then(card => {
         if (!card) throw new Error(`Card ${id} not found.`)
-        troops[index] = { _id: card._id, name: card.name }
+        troops[index] = card
       })
       .catch(err => {
         troops[index] = { _id: id, name: 'Not found' }
@@ -44,7 +44,7 @@ function findKingdom (id) {
     .then(kingdom => {
       if (!kingdom) throw new Error(`Kingdom ${id} not found.`)
       return {
-        kingdom: { _id: kingdom._id, name: kingdom.name, bannerName: kingdom.bannerName },
+        kingdom,
         error: null
       }
     })
@@ -62,7 +62,7 @@ function findHeroClass (id) {
     .then(heroClass => {
       if (!heroClass) throw new Error(`Class ${id} not found.`)
       return {
-        heroClass: { _id: heroClass._id, name: heroClass.name },
+        heroClass,
         error: null
       }
     })
@@ -107,6 +107,8 @@ function getResponse (context, codes, options = {}) {
   return response
 }
 
+const renderTeamImage = require('./renderTeamImage')
+
 module.exports = {
   getTroopIds,
   getKingdomId,
@@ -115,5 +117,6 @@ module.exports = {
   findTroops,
   findKingdom,
   findHeroClass,
-  getResponse
+  getResponse,
+  renderTeamImage
 }
