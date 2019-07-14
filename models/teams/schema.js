@@ -61,7 +61,10 @@ schema.statics.findByTroopname = function (troopname) {
     .match({ comment: { $exists: true } })
     .match({ 'troops.name': { $regex: new RegExp(troopname, 'i') } })
     .sort({ createdAt: -1 })
-    .unwind('tags')
+    .unwind({
+      path: '$tags',
+      preserveNullAndEmptyArrays: true
+    })
     .group({
       _id: '$uniqueComparator',
       troops: { $first: '$troops' },
@@ -76,7 +79,10 @@ schema.statics.findByUsername = function (username) {
     .match({ comment: { $exists: true } })
     .match({ username })
     .sort({ createdAt: -1 })
-    .unwind('tags')
+    .unwind({
+      path: '$tags',
+      preserveNullAndEmptyArrays: true
+    })
     .group({
       _id: '$uniqueComparator',
       troops: { $first: '$troops' },
@@ -91,7 +97,10 @@ schema.statics.findByTags = function (tags) {
     .match({ comment: { $exists: true } })
     .match({ tags: { $all: tags } })
     .sort({ createdAt: -1 })
-    .unwind('tags')
+    .unwind({
+      path: '$tags',
+      preserveNullAndEmptyArrays: true
+    })
     .group({
       _id: '$uniqueComparator',
       troops: { $first: '$troops' },
