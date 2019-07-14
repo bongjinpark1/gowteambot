@@ -1,5 +1,5 @@
 module.exports = {
-  regex: /^\/find_(\d{16})$/,
+  regex: /^\/find_(\d{16})(?:@gowteambot)?/,
   callbackDataRegex: /^\/find_(\d{16}) (\d+)/,
   handler: async (context) => {
     const comparator = context.match[1]
