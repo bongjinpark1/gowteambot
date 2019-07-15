@@ -6,13 +6,16 @@ module.exports = async (troop, y = 100) => {
 
   const background = await Jimp.read(url)
     .catch(() => {
+      console.log('catch1')
       return Jimp.read(troop.imageUrl)
         .then(img => img.writeAsync(url))
     })
     .catch(() => {
+      console.log('catch2')
       const baseUrl = 'https://www.taransworld.com/GoW_graphics/Game/'
-      const match = troop.imageUrl.match(/http:\/\/gowdb.com\/assets\/cards|spells\/(.+)\.jpg/)
+      const match = troop.imageUrl.match(/http:\/\/gowdb.com\/assets\/(?:cards|spells)\/(.+)\.jpg/)
       if (match) {
+        console.log(baseUrl + match[1] + '.png')
         return Jimp.read(baseUrl + match[1] + '.png')
           .then(img => {
             return img.resize(256, Jimp.AUTO, Jimp.RESIZE_BEZIER)
