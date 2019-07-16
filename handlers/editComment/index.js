@@ -1,5 +1,5 @@
 module.exports = {
-  regex: /^\/edit (\d{5}) (.+)/,
+  regex: /^\/edit (\d{5}) ((?:.|\s)+)/,
   handler: async (context) => {
     const match = context.match
     const _id = parseInt(match[1], 10)

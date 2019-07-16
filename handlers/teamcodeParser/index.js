@@ -13,7 +13,7 @@ const {
 } = require('./helpers')
 
 module.exports = {
-  regex: /^\[((?:\d{4},){4}\d{4}(?:,(?:(?:\d,){7})?\d{5})?)\](?:\s(.+))?/,
+  regex: /^\[((?:\d{4},){4}\d{4}(?:,(?:(?:\d,){7})?\d{5})?)\](?:\s((?:.|\s)+))?/,
   handler: async function (context) {
     const matched = context.match
     const codes = matched[1].split(',')
