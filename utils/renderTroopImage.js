@@ -39,7 +39,7 @@ module.exports = async (troop, y = 100) => {
   const fontX = 5 + 32 + 5
   const fontY = (60 - 18) / 2
   background
-    .crop(0, y, 256, 60)
+    // .crop(0, y, 256, 60)
     .print(font, fontX, fontY, troop.name)
 
   if (manaSymbol) {
