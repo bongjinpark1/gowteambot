@@ -21,6 +21,9 @@ module.exports = async (troop, y = 100) => {
             return img.resize(256, Jimp.AUTO, Jimp.RESIZE_BEZIER)
           })
           .then(img => img.writeAsync(url))
+          .catch(() => {
+            return new Jimp(256, 60, 0x00000000)
+          })
       } else {
         return new Jimp(256, 60, 0x00000000)
       }
