@@ -4,12 +4,12 @@ module.exports = async (troop, y = 100) => {
   const parseColors = require('./parseColors')
   const url = path.resolve(__dirname, '../img/' + troop._id + '.jpg')
 
+  let crop = true
   const background = await Jimp.read(url)
     .catch(() => {
       console.log('catch1')
       return Jimp.read(troop.imageUrl)
         .then(img => img.writeAsync(url))
-        .then(img => img.crop(0, y, 256, 60))
     })
     .catch(() => {
       console.log('catch2')
@@ -22,11 +22,12 @@ module.exports = async (troop, y = 100) => {
             return img.resize(256, Jimp.AUTO, Jimp.RESIZE_BEZIER)
           })
           .then(img => img.writeAsync(url))
-          .then(img => img.crop(0, y, 256, 60))
           .catch(() => {
+            crop = !crop
             return new Jimp(256, 60, 0x00000000)
           })
       } else {
+        crop = !crop
         return new Jimp(256, 60, 0x00000000)
       }
     })
@@ -40,6 +41,9 @@ module.exports = async (troop, y = 100) => {
 
   const fontX = 5 + 32 + 5
   const fontY = (60 - 18) / 2
+
+  if (crop) background.crop(0, y, 256, 60)
+
   background
     .print(font, fontX, fontY, troop.name)
 
