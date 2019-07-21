@@ -43,10 +43,7 @@ module.exports = async (troop, y = 100) => {
   background
     .print(font, fontX, fontY, troop.name)
 
-  if (manaSymbol) {
-    console.log('composite manasymbol')
-    background.composite(manaSymbol, 5, (60 - 32) / 2)
-  }
+  if (manaSymbol) background.composite(manaSymbol, 5, (60 - 32) / 2)
 
   return background.writeAsync(path.resolve(__dirname, '../img/' + troop._id + '.ws.jpg'))
 }
