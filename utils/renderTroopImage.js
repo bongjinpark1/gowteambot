@@ -9,6 +9,7 @@ module.exports = async (troop, y = 100) => {
       console.log('catch1')
       return Jimp.read(troop.imageUrl)
         .then(img => img.writeAsync(url))
+        .then(img => img.crop(0, y, 256, 60))
     })
     .catch(() => {
       console.log('catch2')
@@ -21,6 +22,7 @@ module.exports = async (troop, y = 100) => {
             return img.resize(256, Jimp.AUTO, Jimp.RESIZE_BEZIER)
           })
           .then(img => img.writeAsync(url))
+          .then(img => img.crop(0, y, 256, 60))
           .catch(() => {
             return new Jimp(256, 60, 0x00000000)
           })
@@ -39,7 +41,6 @@ module.exports = async (troop, y = 100) => {
   const fontX = 5 + 32 + 5
   const fontY = (60 - 18) / 2
   background
-    // .crop(0, y, 256, 60)
     .print(font, fontX, fontY, troop.name)
 
   if (manaSymbol) {
