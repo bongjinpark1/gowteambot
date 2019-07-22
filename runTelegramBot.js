@@ -3,6 +3,9 @@ const setImageYOffset = require('./handlers/setImageYOffset')
 const editComment = require('./handlers/editComment')
 const finders = require('./handlers/finders')
 module.exports = (bot) => {
+  bot.catch((err) => {
+    console.log(err.message)
+  })
   bot.use((ctx, next) => {
     const start = new Date()
     return next(ctx).then(() => {
