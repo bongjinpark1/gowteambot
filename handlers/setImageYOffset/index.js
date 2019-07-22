@@ -9,7 +9,7 @@ module.exports = {
 
     const card = await Card.findById(_id)
 
-    if (!card) return responseError(`Card ${_id} not found.`)
+    if (!card) return responseError(context, `Card ${_id} not found.`)
 
     const renderTroopImage = require('../../utils/renderTroopImage')
     const Jimp = require('jimp')
