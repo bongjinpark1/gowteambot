@@ -2,6 +2,7 @@ const teamcodeParser = require('./handlers/teamcodeParser')
 const setImageYOffset = require('./handlers/setImageYOffset')
 const editComment = require('./handlers/editComment')
 const finders = require('./handlers/finders')
+const getRedeem = require('./handlers/getRedeem')
 module.exports = (bot) => {
   bot.use((ctx, next) => {
     const start = new Date()
@@ -23,6 +24,7 @@ module.exports = (bot) => {
   setImageYOffset.attach(bot)
   editComment.attach(bot)
   finders.attach(bot)
+  getRedeem.attach(bot)
   bot.command('help', (context) => {
     let message = ''
     message += '[teamcode] 팀코드를 해독하여 출력합니다.\n\n'
