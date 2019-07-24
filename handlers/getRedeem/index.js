@@ -1,7 +1,7 @@
 const axios = require('axios')
 const received = []
 module.exports = {
-  regex: /^noti send (\w{10})$/,
+  regex: /^noti send (\w{10})$/i,
   handler: async function (context) {
     const url = 'https://pcmob.parse.gemsofwar.com/parse/functions/submit_code_web'
     const inviteCode = process.env.INVITE_CODE
