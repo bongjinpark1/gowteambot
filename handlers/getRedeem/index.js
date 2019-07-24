@@ -15,7 +15,7 @@ module.exports = {
 
     const res = await axios.post(url, payload)
     let message = ''
-    message += `input: ${redeem}`
+    message += `input: ${redeem}\n\n`
     message += `response: ${JSON.stringify(res.data)}`
     context.telegram.sendMessage(process.env.ADMIN_CHAT_ID, message)
   },
