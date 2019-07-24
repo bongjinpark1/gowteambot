@@ -4,6 +4,9 @@ const editComment = require('./handlers/editComment')
 const finders = require('./handlers/finders')
 const getRedeem = require('./handlers/getRedeem')
 module.exports = (bot) => {
+  bot.catch((err) => {
+    console.log(err.message)
+  })
   bot.use((ctx, next) => {
     const start = new Date()
     return next(ctx).then(() => {
