@@ -56,6 +56,22 @@ schema.query.byUniqueComparator = function (comparator) {
     .sort({ createdAt: -1 })
 }
 
+schema.statics.findAllTags = function () {
+  return this.aggregate()
+    .match({ comment: { $exists: true } })
+    .unwind({
+      path: '$tags',
+      preserveNullAndEmptyArrays: true
+    })
+    .group({
+      _id: 1,
+      tags: { $addToSet: '$tags' }
+    })
+    .then((result) => {
+      return result[0].tags
+    })
+}
+
 schema.statics.findByTroopname = function (troopname) {
   return this.aggregate()
     .match({ comment: { $exists: true } })

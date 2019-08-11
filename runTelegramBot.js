@@ -3,6 +3,7 @@ const setImageYOffset = require('./handlers/setImageYOffset')
 const editComment = require('./handlers/editComment')
 const finders = require('./handlers/finders')
 const getRedeem = require('./handlers/getRedeem')
+const findAllTags = require('./handlers/findAllTags')
 module.exports = (bot) => {
   bot.catch((err) => {
     console.log(err.message)
@@ -28,6 +29,7 @@ module.exports = (bot) => {
   editComment.attach(bot)
   finders.attach(bot)
   getRedeem.attach(bot)
+  findAllTags.attach(bot)
   bot.command('help', (context) => {
     let message = ''
     message += '[teamcode] 팀코드를 해독하여 출력합니다.\n\n'
