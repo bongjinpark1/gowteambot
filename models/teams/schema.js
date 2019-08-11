@@ -68,7 +68,7 @@ schema.statics.findAllTags = function () {
       tags: { $addToSet: '$tags' }
     })
     .then((result) => {
-      return result[0].tags
+      return result[0].tags.sort()
     })
 }
 
