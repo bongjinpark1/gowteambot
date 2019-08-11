@@ -1,4 +1,5 @@
 module.exports = {
+  regex: /^\/tags/,
   handler: async (context) => {
     const Team = require('../../models/teams')
 
@@ -10,6 +11,6 @@ module.exports = {
     const sent = await context.reply(message, options)
   },
   attach (bot) {
-    bot.command('tags', this.handler)
+    bot.hears(this.regex, this.handler)
   }
 }
