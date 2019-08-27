@@ -91,7 +91,7 @@ schema.statics.findByTroopname = function (troopname, options = {}) {
 
   const total = build().count('total')
     .then(result => {
-      if (!result) return 0
+      if (!result.length) return 0
       return result[0].total
     })
 
