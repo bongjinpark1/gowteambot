@@ -74,7 +74,7 @@ function findHeroClass (id) {
     })
 }
 function getResponse (context, options = {}) {
-  const { troops, kingdom, heroClass, talents, comment, _id, teamcode, first_name } = options
+  const { troops, kingdom, heroClass, talents, comment, _id, teamcode, first_name, createdAt } = options
 
   let response = ''
   response += `<b>${kingdom.bannerName}</b> (${kingdom.name})`
@@ -101,7 +101,7 @@ function getResponse (context, options = {}) {
   }
 
   const username = first_name
-  const date = require('moment')().format('YYYY-MM-DD')
+  const date = require('moment')(createdAt).format('YYYY-MM-DD')
   response += `\n\n<b>No. ${_id}</b> from <b>${username} ${date}</b>`
 
   return response

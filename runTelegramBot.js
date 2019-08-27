@@ -6,7 +6,7 @@ const getRedeem = require('./handlers/getRedeem')
 const findAllTags = require('./handlers/findAllTags')
 module.exports = (bot) => {
   bot.catch((err) => {
-    console.log(err.message)
+    console.log(err)
   })
   bot.use((ctx, next) => {
     const start = new Date()

@@ -72,11 +72,10 @@ schema.statics.findAllTags = function () {
     })
 }
 
-schema.statics.findByTroopname = function (troopname) {
-  return this.aggregate()
+schema.statics.findByTroopname = function (troopname, options = {}) {
+  const build = () => (this.aggregate()
     .match({ comment: { $exists: true } })
     .match({ 'troops.name': { $regex: new RegExp(troopname, 'i') } })
-    .sort({ createdAt: -1 })
     .unwind({
       path: '$tags',
       preserveNullAndEmptyArrays: true
@@ -85,9 +84,24 @@ schema.statics.findByTroopname = function (troopname) {
       _id: '$uniqueComparator',
       troops: { $first: '$troops' },
       tags: { $addToSet: '$tags' },
-      createdAt: { $first: '$createdAt' }
+      createdAt: { $max: '$createdAt' }
+    }))
+
+  const query = build().sort({ createdAt: -1 })
+
+  const total = build().count('total')
+    .then(result => {
+      if (!result) return 0
+      return result[0].total
     })
-    .sort({ createdAt: -1 })
+
+  const limit = options.limit || 0
+  const offset = options.offset || 0
+
+  if (limit + offset) query.limit(limit + offset)
+  if (offset) query.skip(offset)
+
+  return Promise.all([query, total])
 }
 
 schema.statics.findByUsername = function (username) {
