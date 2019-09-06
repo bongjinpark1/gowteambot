@@ -104,6 +104,10 @@ function getResponse (context, options = {}) {
   const date = require('moment')(createdAt).format('YYYY-MM-DD')
   response += `\n\n<b>No. ${_id}</b> from <b>${username} ${date}</b>`
 
+  if (comment) {
+    response += `\n<a href="http://gowclien.net/teams/${_id}">웹에서보기</a>`
+  }
+
   return response
 }
 
