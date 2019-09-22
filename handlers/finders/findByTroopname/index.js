@@ -1,6 +1,6 @@
 module.exports = {
   regex: /^\/find (.+)/,
-  callbackDataRegex: /find_(\d+) (.+)/,
+  callbackDataRegex: /findtn_(\d+) (.+)/,
   handler: async context => {
     const isCallback = !!context.callbackQuery
     const troopname = isCallback ? context.match[2] : context.match[1]
@@ -14,8 +14,6 @@ module.exports = {
       offset: (page - 1) * 1,
       limit: 5
     }
-
-    console.log(_options)
 
     let total = 0
 
@@ -45,8 +43,8 @@ module.exports = {
     }
 
     const inline_keyboard = []
-    if (page > 1) inline_keyboard.push({ text: 'prev', callback_data: `/find_${page - 1} ${troopname}` })
-    if (page * _options.limit < total) inline_keyboard.push({ text: 'next', callback_data: `/find_${page + 1} ${troopname}` })
+    if (page > 1) inline_keyboard.push({ text: 'prev', callback_data: `/findtn_${page - 1} ${troopname}` })
+    if (page * _options.limit < total) inline_keyboard.push({ text: 'next', callback_data: `/findtn_${page + 1} ${troopname}` })
     options.reply_markup = {
       inline_keyboard: [inline_keyboard]
     }
