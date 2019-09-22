@@ -15,6 +15,8 @@ module.exports = {
       limit: 5
     }
 
+    console.log(_options)
+
     let total = 0
 
     const teams = await Team.findByTroopname(troopname, _options)
