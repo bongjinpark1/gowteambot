@@ -27,7 +27,7 @@ function job () {
 
       arr.reverse().forEach(({ key, href }) => {
         if (!last || Number(last) < Number(key)) {
-          telegram.sendMessage(world, href)
+          telegram.sendMessage(world, 'https://www.clien.net' + href)
           last = key
         }
       })
