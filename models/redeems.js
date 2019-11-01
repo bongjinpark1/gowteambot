@@ -13,7 +13,8 @@ const options = {
 
 const schema = new mongoose.Schema(fields, options)
 
-schema.index({ code: 1, isAvailable: 1 })
+schema.index({ code: 1 })
+schema.index({ isAvailable: 1, createdAt: -1 })
 schema.index({ createdAt: -1 })
 
 const Redeem = mongoose.model('Redeem', schema)
