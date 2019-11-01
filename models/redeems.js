@@ -8,10 +8,7 @@ const fields = {
 }
 
 const options = {
-  timestamps: {
-    createdAt: true,
-    updatedAt: false
-  }
+  timestamps: true
 }
 
 const schema = new mongoose.Schema(fields, options)
