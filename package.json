@@ -17,7 +17,7 @@
     "jimp": "^0.6.4",
     "lodash": "^4.17.13",
     "moment": "^2.24.0",
-    "mongoose": "^5.6.4",
+    "mongoose": "^5.7.5",
     "mongoose-auto-increment": "^5.0.1",
     "pluralize": "^8.0.0",
     "puppeteer": "^1.18.1",
