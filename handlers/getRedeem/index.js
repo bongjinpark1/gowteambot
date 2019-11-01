@@ -1,23 +1,50 @@
 const axios = require('axios')
-const received = []
+const _ = require('lodash')
+const Redeem = require('../../models/redeems')
+
 module.exports = {
-  regex: /^noti send (\w{10})$/i,
+  regex: /^noti send ([a-zA-Z0-9]{10})$/i,
   handler: async function (context) {
     const url = 'https://pcmob.parse.gemsofwar.com/parse/functions/submit_code_web'
-    const inviteCode = process.env.INVITE_CODE
-    const redeem = context.match[1].toUpperCase()
-    if (received.includes(redeem)) return
-    received.push(redeem)
+    const NameCode = process.env.INVITE_CODE
+    const Code = context.match[1]
+
+    const redeem = await Redeem.findOne({ code: Code })
+    if (redeem) return
+
     const payload = {
-      NameCode: inviteCode,
-      Code: redeem
+      NameCode,
+      Code
     }
 
     const res = await axios.post(url, payload)
-    let message = ''
-    message += `input: ${redeem}\n\n`
-    message += `response: ${JSON.stringify(res.data)}`
-    context.telegram.sendMessage(process.env.ADMIN_CHAT_ID, message)
+    const success = _.get(res, 'data.result.success')
+
+    if (!success) {
+      let message = ''
+      message += `input: ${Code}\n\n`
+      message += `response: ${JSON.stringify(res.data)}`
+      return context.telegram.sendMessage(process.env.ADMIN_CHAT_ID, message)
+    }
+
+    const _redeem = new Redeem({
+      code: Code,
+      username: context.message.from.username,
+      first_name: context.message.from.first_name
+    })
+
+    try {
+      await _redeem.save()
+      let message = ''
+      message += `input: ${Code}\n\n`
+      message += `response: ${success}`
+      context.telegram.sendMessage(process.env.ADMIN_CHAT_ID, message)
+    } catch (err) {
+      let message = ''
+      message += `input: ${Code}\n\n`
+      message += `response: ${JSON.stringify(res.data)}`
+      context.telegram.sendMessage(process.env.ADMIN_CHAT_ID, message)
+    }
   },
   attach: function (bot) {
     bot.hears(this.regex, this.handler)
