@@ -19,7 +19,7 @@ module.exports = (bot) => {
         let message = ''
         message += `from: ${from}\n`
         message += `input: ${input}\n`
-        message += `latancy: ${ms} ms`
+        message += `latency: ${ms} ms`
         ctx.telegram.sendMessage(process.env.ADMIN_CHAT_ID, message)
       }
     })
